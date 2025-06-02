@@ -1,0 +1,30 @@
+import * as satellite from "satellite.js";
+import {Vector3} from "three";
+
+// since satellite does the calculations in km and in three.js the radius of my earth is around 2 units
+// we have to add a conversion factor, that's why the orbits are not rendering
+const EARTH_RADIUS_KM: number = 6371;
+const EARTH_RADIUS_UNITS: number = 2;
+const exaggerationFactor: number = 0.12;
+
+const conversionFactor: number = (EARTH_RADIUS_UNITS / EARTH_RADIUS_KM) * exaggerationFactor;
+
+export function calculateOrbitTrail(tleLine1: string, tleLine2: string): Vector3[] {
+  const satrec = satellite.twoline2satrec(tleLine1, tleLine2);
+  const positions: Vector3[] = [];
+
+  const date = new Date();
+  for (let i = 0; i < 90; i++) {
+    const time = new Date(date.getTime() + i * 60 * 1000);
+    const positionAndVelocity = satellite.propagate(satrec, time);
+
+    if (positionAndVelocity.position) {
+      const gmst = satellite.gstime(time);
+      const positionEci = satellite.eciToEcf(positionAndVelocity.position, gmst);
+
+      positions.push(new Vector3(positionEci.x * conversionFactor, positionEci.y * conversionFactor, positionEci.z * conversionFactor));
+    }
+  }
+
+  return positions;
+}
