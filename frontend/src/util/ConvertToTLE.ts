@@ -1,5 +1,9 @@
 import type {Satellite} from "../types/Satellite.ts";
 
+// Since the data of the satellites from the database in the form on a JSON obejct
+// we have to convert it into TLE format when we are working with satellite.js
+// Original data from Celestrak can be retrieved in TLE format or JSON
+
 export function pad(value: number | string, length: number): string {
   return value.toString().padStart(length, "0");
 }
