@@ -18,7 +18,7 @@ public class SatelliteService {
     private final SatelliteRepository satelliteRepository;
     private final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
-    @Value("${celestrak.api.url.gps}")
+    @Value("${celestrak.api.url.space.station}")
     private String celestrakFetchUrl;
 
     @Autowired
