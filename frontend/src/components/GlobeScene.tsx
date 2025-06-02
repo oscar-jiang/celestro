@@ -2,7 +2,6 @@ import {Stars} from "@react-three/drei/core/Stars";
 import {Canvas} from "@react-three/fiber";
 import Earth from "./Earth.tsx";
 import {OrbitControls} from "@react-three/drei";
-import optionsIcon from "..//assets/options.svg";
 import type {Satellite} from "../types/Satellite.ts";
 import {useEffect, useState} from "react";
 import {getSatellites} from "../api/satelliteApi.ts";
@@ -47,7 +46,6 @@ export const GlobeScene = () => {
           <Stars />
           <Earth />
           <OrbitControls enableZoom={true} rotateSpeed={0.30} />
-
           {
             satellites
               .filter((satellite) => selectedIds.includes(satellite.id))
@@ -59,7 +57,6 @@ export const GlobeScene = () => {
                 return <OrbitTrail key={satellite.id} positions={positions} />
               })
           }
-
         </Canvas>
 
         <div className={"absolute top-4 right-4"}>
