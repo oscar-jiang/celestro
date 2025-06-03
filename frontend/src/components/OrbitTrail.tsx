@@ -3,6 +3,7 @@ import { Vector3, Color } from 'three';
 
 interface OrbitTrailProps {
   positions: Vector3[];
+  onClick: () => void;
 }
 
 function generateColours(positions: Vector3[], baseColour: string): Color[] {
@@ -21,7 +22,7 @@ function generateColours(positions: Vector3[], baseColour: string): Color[] {
 
 // https://threejs.org/docs/#api/en/math/Color
 // https://drei.docs.pmnd.rs/shapes/line
-export const OrbitTrail: React.FC<OrbitTrailProps> = ({ positions }) => {
+export const OrbitTrail: React.FC<OrbitTrailProps> = ({ positions, onClick }) => {
   const colours = generateColours(positions, "#ff8a00");
 
   return (
@@ -29,6 +30,7 @@ export const OrbitTrail: React.FC<OrbitTrailProps> = ({ positions }) => {
       points={positions}
       vertexColors={colours}
       lineWidth={2}
+      onClick={onClick}
     />
   );
 }

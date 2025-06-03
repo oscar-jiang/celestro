@@ -16,13 +16,14 @@ export function calculateOrbitTrail(tleLine1: string, tleLine2: string): Vector3
   const positions: Vector3[] = [];
 
   const date = new Date();
-  for (let i = 0; i < 90; i++) {
+  // 360 minutes = 6 hours
+  for (let i = 0; i < 360; i++) {
     const time = new Date(date.getTime() + i * 60 * 1000);
     const positionAndVelocity = satellite.propagate(satrec, time);
 
     if (positionAndVelocity.position) {
-      const gmst = satellite.gstime(time);
-      const positionEci = satellite.eciToEcf(positionAndVelocity.position, gmst);
+      const gst = satellite.gstime(time);
+      const positionEci = satellite.eciToEcf(positionAndVelocity.position, gst);
 
       positions.push(new Vector3(positionEci.x * conversionFactor, positionEci.y * conversionFactor, positionEci.z * conversionFactor));
     }
