@@ -8,6 +8,10 @@ export const LandingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = "Celestro";
+  }, []);
+
+  useEffect(() => {
     document.body.style.overflowY = "hidden";
 
     return () => {
